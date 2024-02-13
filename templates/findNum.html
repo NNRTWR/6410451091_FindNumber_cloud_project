@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+    <title>Find Number Together Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rollergirls:wght@400&display=swap" />
+    <link rel="stylesheet" type="text/css" href="templates/findNum.css" />
+    <style>
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  margin: 0 auto;
+  background: #fee1ff;
+  overflow: hidden;
+}
+.flex-row {
+  position: relative;
+  width: 1001px;
+  height: 99px;
+  margin: 127px 0 0 222px;
+  z-index: 2;
+}
+.find-number-together {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  width: 996px;
+  height: 95px;
+  top: 0;
+  left: 0;
+  color: #4b75c6;
+  font-family: Rollergirls, var(--default-font-family);
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 95px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+}
+.find-number-together-1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  width: 996px;
+  height: 95px;
+  top: 4px;
+  left: 5px;
+  color: #b5e9ff;
+  font-family: Rollergirls, var(--default-font-family);
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 95px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+}
+.flex-row-dad {
+  position: relative;
+  width: 1027px;
+  height: 115px;
+  margin: 73px 0 0 206px;
+  z-index: 8;
+}
+.ellipse {
+  position: absolute;
+  width: 123px;
+  height: 115px;
+  top: 0;
+  left: 896px;
+  background: url(./assets/images/ee2501ab-adf4-4cbe-9496-1ab77d09fe90.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 6;
+}
+.ellipse-2 {
+  position: absolute;
+  width: 106px;
+  height: 101px;
+  top: 7px;
+  left: 904px;
+  background: url(./assets/images/667de858-f178-4cab-bfd2-3511767ce30e.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 7;
+}
+.textbox {
+  position: absolute;
+  width: 477px;
+  height: 82px;
+  top: 16px;
+  left: 371px;
+  background: url(./assets/images/894d928b-c715-4ec7-a701-a5b37b22a6d5.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 3;
+  border-radius: 20px;
+}
+.press-the-number {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  width: 331px;
+  height: 40px;
+  top: 37px;
+  left: 0;
+  color: #000000;
+  font-family: Rollergirls, var(--default-font-family);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 40px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 4;
+}
+.submit {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  width: 139px;
+  height: 51px;
+  top: 40px;
+  left: 888px;
+  color: #000000;
+  font-family: Rollergirls, var(--default-font-family);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: center;
+  z-index: 8;
+}
+.text {
+  position: relative;
+  width: 1137px;
+  height: 410px;
+  margin: 53px 0 0 152px;
+  background: rgba(254, 254, 254, 0.7);
+  z-index: 9;
+  border-radius: 20px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+
+        <!-- head -->
+
+      <div class="flex-row">
+        <span class="find-number-together">Find number together</span
+        ><span class="find-number-together-1">Find number together</span>
+      </div>
+
+
+      <div class="flex-row-dad">
+        <input type="text" class="textbox" id="textbox" style="font-size: 50px;">
+        
+        <div class="ellipse-2"></div>
+        <div class="input"></div>
+        <span class="press-the-number">Press the number:</span
+        ><button onclick="submit()" class="submit">submit</button>
+      </div>
+
+
+
+      <div id="text" class="text"></div>
+      <script>
+        var socket = io();
+        function submit(){
+            var textbox=document.getElementById("textbox");
+            socket.emit("hint",textbox.value,(Response)=>{
+        })}
+        socket.on("hints",(textboxvalue)=>{
+  document.getElementById('text').textContent += textboxvalue+"\n";})
+        </script>
+    </div>
+  </body>
+</html>
